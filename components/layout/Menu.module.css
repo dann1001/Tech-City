@@ -1,0 +1,15 @@
+.menu {
+  text-align: right;
+  list-style: none;
+  width: 250px;
+  height: 100vh;
+  background-color: rgb(71, 71, 71);
+}
+
+.menu li {
+  border-bottom: 0.1px solid white;
+  padding: 0.5rem 0.3rem;
+  cursor: pointer;
+  color: white;
+  font-weight: lighter;
+}

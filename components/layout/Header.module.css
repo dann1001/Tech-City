@@ -1,0 +1,10 @@
+.logo {
+  margin: 1rem;
+}
+
+@media (max-width: 620px) {
+  .logo {
+    max-width: 1rem;
+    flex-wrap: nowrap;
+  }
+}

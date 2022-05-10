@@ -1,0 +1,74 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.box {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+}
+
+.image {
+  margin-top: 0.1rem;
+  width: 50%;
+  border: 0.1rem solid rgba(51, 51, 51, 0.205);
+}
+
+.summary {
+  margin: 4.25rem 2rem;
+  width: 50%;
+}
+
+.summary h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  color: rgba(197, 51, 51, 0.801);
+}
+
+.summary p {
+  border-top: 1px solid rgba(51, 51, 51, 0.26);
+  font-size: 1rem;
+  color: #333;
+  margin: 1.25rem 0;
+  min-height: 6rem;
+}
+
+.input input {
+  width: 3rem;
+  height: 2rem;
+  margin-right: 1rem;
+}
+
+.buy {
+  width: 7rem;
+  height: 2rem;
+  background-color: rgba(51, 51, 51, 0.787);
+  color: aliceblue;
+  cursor: pointer;
+  border: none;
+}
+
+.buy:hover {
+  background-color: #333;
+}
+
+@media (max-width: 720px) {
+  .box {
+    flex-direction: column;
+  }
+  .image {
+    width: 100%;
+  }
+  .summary {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+  }
+  .input {
+    height: 1rem;
+  }
+}
