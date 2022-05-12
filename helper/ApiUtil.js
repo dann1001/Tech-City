@@ -34,15 +34,3 @@ export async function getFilteredProducts(filteredData) {
     (product) => product.price <= price && product.value === catagory
   );
 }
-
-// export async function getProductByInformation() {
-//   const allProducts = await getAllProducts();
-
-//   return allProducts.filter(
-//     (product) => product.cpu
-//     // product.gpu,
-//     // product.ram,
-//     // product.items,
-//     // product.year
-//   );
-// }

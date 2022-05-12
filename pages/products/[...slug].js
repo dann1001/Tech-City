@@ -5,7 +5,8 @@ import { Fragment } from 'react';
 import ProductList from '../../components/products/ProductList';
 import ProductSearch from '../../components/products/ProductsSearch';
 
-import { getFilteredProducts } from '../../helper/ApiUtil';
+// import { getFilteredProducts } from '../../helper/ApiUtil';
+import { getFilteredProducts } from '../../data';
 
 const FilteredProductPage = (props) => {
   const router = useRouter();

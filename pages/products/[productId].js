@@ -1,10 +1,11 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
-import {
-  getProductById,
-  getProductByInformation,
-  getFeaturedProducts,
-} from '../../helper/ApiUtil';
+// import {
+//   getProductById,
+//   getProductByInformation,
+//   getFeaturedProducts,
+// } from '../../helper/ApiUtil';
+import { getProductById, getFeaturedProducts } from '../../data';
 
 import ProductsSummary from '../../components/products-detail-page/ProductsSummary';
 import Comments from '../../components/comments/Comments';

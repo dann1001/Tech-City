@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import ProductList from '../../components/products/ProductList';
 import ProductsSearch from '../../components/products/ProductsSearch';
-import { getAllProducts } from '../../helper/ApiUtil';
+// import { getAllProducts } from '../../helper/ApiUtil';
+import { getAllProducts } from '../../data';
 
 const AllProductsPage = (props) => {
   const router = useRouter();

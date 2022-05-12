@@ -1,6 +1,7 @@
 import Haed from 'next/head';
 
-import { getFeaturedProducts } from '../helper/ApiUtil';
+// import { getFeaturedProducts } from '../helper/ApiUtil';
+import { getFeaturedProducts } from '../data';
 import ProductList from '../components/products/ProductList';
 import { Fragment } from 'react';
 
