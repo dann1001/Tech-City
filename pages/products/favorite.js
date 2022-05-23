@@ -1,9 +1,10 @@
-import React from 'react';
-import ProductItem from '../../components/products/ProductItem';
-import Link from 'next/link';
-import { getAllProducts } from '../../helper/ApiUtil';
+import React from "react";
+import ProductItem from "../../components/products/ProductItem";
+import FavoriteProducts from "../../components/products/FavoriteProducts";
+import Link from "next/link";
+import { getAllProducts } from "../../helper/ApiUtil";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.favore.items);
@@ -11,7 +12,7 @@ const Cart = () => {
   return (
     <div>
       {cartItems.map((item) => (
-        <ProductItem
+        <FavoriteProducts
           key={item.id}
           item={{
             title: item.name,
