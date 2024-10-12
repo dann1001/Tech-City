@@ -1,0 +1,412 @@
+﻿1
+00:00:02,120 --> 00:00:09,010
+‫We added our first simple route in a extra file here to keep our app.js file lean.
+
+2
+00:00:09,020 --> 00:00:12,490
+‫Now as I mentioned though, this isn't even a route which we need,
+
+3
+00:00:12,620 --> 00:00:19,550
+‫we need to get routes in the places area but we need routes for a specific user ID or a specific place
+
+4
+00:00:19,630 --> 00:00:23,640
+‫ID, we also need other routes like post, patch and delete.
+
+5
+00:00:23,660 --> 00:00:25,430
+‫So let's work on that now,
+
+6
+00:00:25,520 --> 00:00:32,660
+‫let's also make sure that we only reach our places routes if the request starts with
+
+7
+00:00:32,660 --> 00:00:36,530
+‫/api/places as indicated on that slide and not with slash
+
+8
+00:00:36,530 --> 00:00:43,070
+‫nothing as it's currently the case because we also want to be able to use /api/users to later
+
+9
+00:00:43,070 --> 00:00:44,710
+‫reach our users routes.
+
+10
+00:00:44,750 --> 00:00:51,050
+‫So for that back in our application, to make sure that we only make it to these places routes, if the
+
+11
+00:00:51,050 --> 00:00:59,340
+‫request starts with /api/places, we have to add a filter here on this middleware in the app.js
+
+12
+00:00:59,340 --> 00:01:00,830
+‫file.
+
+13
+00:01:00,830 --> 00:01:07,970
+‫Now when using the use method, you don't have to add a path filter but you can, then this filter will
+
+14
+00:01:08,030 --> 00:01:09,770
+‫also not be treated as a
+
+15
+00:01:10,070 --> 00:01:18,590
+‫this has to be the exact path filter but as a the path has to start with the specified path filter.
+
+16
+00:01:18,590 --> 00:01:25,640
+‫That means that here as a first argument, we can add /api/places and Express.js will now
+
+17
+00:01:25,730 --> 00:01:30,120
+‫only forward requests to our places routes middleware,
+
+18
+00:01:30,170 --> 00:01:38,630
+‫so to the routes configured here if their path starts with /api/places. It can be longer than
+
+19
+00:01:38,630 --> 00:01:43,160
+‫that so it can be /api/places slash something,
+
+20
+00:01:43,160 --> 00:01:48,020
+‫it will still be forwarded but for example just /api/
+
+21
+00:01:48,020 --> 00:01:52,060
+‫would not be forwarded to places routes.
+
+22
+00:01:52,130 --> 00:01:58,460
+‫So with that if we change this, we make sure that if we reload here, this does not work anymore because
+
+23
+00:01:58,460 --> 00:02:07,670
+‫now our route here, slash nothing, actually has to be prepended with /api/places and that's
+
+24
+00:02:07,700 --> 00:02:09,050
+‫also important,
+
+25
+00:02:09,050 --> 00:02:15,370
+‫the route filter you set up here is automatically added to the filter you have here.
+
+26
+00:02:15,470 --> 00:02:22,770
+‫So if you want to have requests which start with /api/places, you must not repeat that here,
+
+27
+00:02:22,970 --> 00:02:29,190
+‫instead here you only add the path after that initial filter you have in app.js already.
+
+28
+00:02:29,300 --> 00:02:33,530
+‫So here that simply means just api/places/
+
+29
+00:02:33,530 --> 00:02:42,470
+‫should trigger this function. So here if we now enter api/places, we get our message again,
+
+30
+00:02:42,500 --> 00:02:50,990
+‫this works but of course whilst it's nice that this works, this isn't really the logic we need here.
+
+31
+00:02:50,990 --> 00:02:57,890
+‫Instead if we have a look at our plan again, we need to get route which has /users/some userId
+
+32
+00:02:57,890 --> 00:03:04,600
+‫in it or which just searches for a specific place ID and to practice that,
+
+33
+00:03:04,730 --> 00:03:13,280
+‫let's actually add a constant here in places routes, dummy places which will later in the course be replaced
+
+34
+00:03:13,280 --> 00:03:16,080
+‫by our database access in the end but here,
+
+35
+00:03:16,100 --> 00:03:21,710
+‫let's just store some dummy places for the moment and every place could have an ID, p1, could have
+
+36
+00:03:21,710 --> 00:03:34,140
+‫a title, for example Empire State Building, could have a description, one of the most famous skyscrapers
+
+37
+00:03:34,260 --> 00:03:35,370
+‫in the world, a
+
+38
+00:03:37,640 --> 00:03:43,100
+‫location which actually should be a nested object with a latitude and longitude
+
+39
+00:03:43,100 --> 00:03:48,890
+‫and here I simply use Google Maps to search for that, so I'll paste in the values, you can simply use
+
+40
+00:03:48,890 --> 00:03:55,330
+‫Google maps and search for the Empire State Building to then find the latitude and longitude here in
+
+41
+00:03:55,340 --> 00:03:59,410
+‫the URL, the thing after the lat is the latitude,
+
+42
+00:03:59,480 --> 00:04:04,340
+‫the thing after the comma thereafter, before the next comma is the longitude,
+
+43
+00:04:04,430 --> 00:04:11,930
+‫so that's what I simply pasted in here. Then the address which I'll also simply paste from Google Maps
+
+44
+00:04:12,800 --> 00:04:19,480
+‫and a creator field which points at a fictional user ID, because we have no real users at the moment,
+
+45
+00:04:19,640 --> 00:04:26,210
+‫u1 which I would say is the user who created that place. Later of course, we will have real users
+
+46
+00:04:26,210 --> 00:04:30,530
+‫and linked up models will have users connected to places,
+
+47
+00:04:30,530 --> 00:04:33,350
+‫for now we'll just work with the dummy data.
+
+48
+00:04:33,440 --> 00:04:37,920
+‫So now we have a place which we could try to get by its ID,
+
+49
+00:04:38,090 --> 00:04:43,700
+‫so actually here, I want to have a get request where the ID is part of the URL.
+
+50
+00:04:44,250 --> 00:04:50,930
+‫So the idea is that we send the request to api/places/p1 for example and this gives us
+
+51
+00:04:50,930 --> 00:04:56,670
+‫the data for the place with the ID, p1, so the ID should be encoded in the URL,
+
+52
+00:04:56,690 --> 00:05:03,710
+‫that's a typical pattern you see in such APIs in reality. To tell Express that we have a dynamic
+
+53
+00:05:03,710 --> 00:05:08,580
+‫segment which we don't know in advance because of course I can't say I want to load something for p1
+
+54
+00:05:08,580 --> 00:05:12,240
+‫because later we'll have more places with different IDs,
+
+55
+00:05:12,380 --> 00:05:18,230
+‫so to tell Express that we have a dynamic segment, where we don't know the exact value in advance but
+
+56
+00:05:18,280 --> 00:05:23,720
+‫where we want to be able to later use it in this middleware function and find a place by the concrete
+
+57
+00:05:23,750 --> 00:05:25,400
+‫value which was entered,
+
+58
+00:05:25,400 --> 00:05:32,510
+‫we add a colon here in our filter and then any identifier of our choice, for example place ID or just
+
+59
+00:05:32,510 --> 00:05:34,660
+‫pid for place ID.
+
+60
+00:05:34,880 --> 00:05:42,680
+‫Now Express.js accepts this route here, if I save this and I reload this URL with
+
+61
+00:05:42,680 --> 00:05:43,490
+‫places/p1,
+
+62
+00:05:43,790 --> 00:05:46,910
+‫we see we make it into this middleware function and that's great
+
+63
+00:05:46,910 --> 00:05:53,600
+‫but now I also want to return that place with that ID which I conveniently have here because I
+
+64
+00:05:53,600 --> 00:06:00,890
+‫added it as a dummy place. For that, we need to extract the concrete value that was entered for this concrete
+
+65
+00:06:00,980 --> 00:06:06,610
+‫request which reaches this function and Express.js has got us covered with that too.
+
+66
+00:06:06,950 --> 00:06:13,050
+‫We can get the place ID by using the request object and there, you will have a params property,
+
+67
+00:06:13,070 --> 00:06:20,600
+‫this is added by Express.js. The params property in the end holds an object where your dynamic segments
+
+68
+00:06:20,600 --> 00:06:28,820
+‫here will exist as keys and the value will be the concrete value the user who sent the request entered,
+
+69
+00:06:28,820 --> 00:06:35,200
+‫so here we can access request params.pid and get the concrete ID that is encoded in the URL.
+
+70
+00:06:35,200 --> 00:06:42,170
+‫Well and now we can search for a place with that ID in the dummy places array and add that to
+
+71
+00:06:42,170 --> 00:06:44,300
+‫the response we're sending back.
+
+72
+00:06:44,300 --> 00:06:51,770
+‫So here we can get our place by reaching out to dummy places and using the find method which is a default
+
+73
+00:06:51,800 --> 00:06:53,720
+‫Javascript array method,
+
+74
+00:06:53,780 --> 00:07:01,700
+‫it helps us find a specific element in an array. Find takes a function which we pass to it which will
+
+75
+00:07:01,700 --> 00:07:07,940
+‫be executed on every element in the array and the element that's currently looking at will be fed in to
+
+76
+00:07:07,940 --> 00:07:09,500
+‫the function as an argument,
+
+77
+00:07:09,530 --> 00:07:14,990
+‫so the place in this case which I'll just name p here in the argument to not clash with this constant
+
+78
+00:07:14,990 --> 00:07:22,520
+‫name. Then here in this find function, we have to return true if we're looking at the place which we want
+
+79
+00:07:22,520 --> 00:07:23,450
+‫to find,
+
+80
+00:07:23,450 --> 00:07:25,990
+‫so here I will return p.id
+
+81
+00:07:26,420 --> 00:07:33,490
+‫equal place ID, so I'm comparing the ID of the place I'm currently looking at and keep in mind, this function
+
+82
+00:07:33,560 --> 00:07:39,290
+‫here executes on all elements in this array, of course here we only have one but if we had more than
+
+83
+00:07:39,290 --> 00:07:45,470
+‫one it would execute on all of them and it will then return true if the ID of the place it's currently
+
+84
+00:07:45,470 --> 00:07:52,400
+‫looking at is equal to the ID that was part of our URL and then here instead of returning some
+
+85
+00:07:52,400 --> 00:07:57,120
+‫message, I can return the place here in my response.
+
+86
+00:07:57,140 --> 00:08:03,230
+‫This syntax here by the way can always be shortened to this, that is default Javascript, it in the end means
+
+87
+00:08:03,230 --> 00:08:11,030
+‫that Javascript automatically expands this to this, if the name of the property is equal to the name
+
+88
+00:08:11,030 --> 00:08:14,760
+‫of the variable that holds the value you want to store in the property,
+
+89
+00:08:14,810 --> 00:08:23,430
+‫you can shorten it. And with that if we now save this and we reload this page, you'll see indeed
+
+90
+00:08:23,430 --> 00:08:24,780
+‫here I get back
+
+91
+00:08:24,780 --> 00:08:30,780
+‫that place data, I get back that place data because I entered a valid ID.
+
+92
+00:08:30,990 --> 00:08:37,440
+‫If I for example would try to find the place with the ID p2, which I don't have here in my dummy places,
+
+93
+00:08:38,160 --> 00:08:44,250
+‫you would see I get back an empty object because there is no place which I found,
+
+94
+00:08:44,340 --> 00:08:51,450
+‫so there is no place added to this object. Of course in such a case where we didn't find a place, we might
+
+95
+00:08:51,450 --> 00:08:56,750
+‫want to handle this error differently and return of 404 error for example
+
+96
+00:08:56,910 --> 00:08:59,380
+‫but we'll have a look at error handling a little later,
+
+97
+00:08:59,400 --> 00:09:04,140
+‫for now let's leave it as it is and instead work on another route.
+
+98
+00:09:04,140 --> 00:09:11,880
+‫Let's implement that get/users/:uid route here and that is actually a great practice
+
+99
+00:09:11,880 --> 00:09:15,100
+‫for you, we'll implement it together in the next lecture
+
+100
+00:09:15,210 --> 00:09:23,040
+‫but here it's your job to instead write a new route that is able to accept this dynamic uid segment,
+
+101
+00:09:23,070 --> 00:09:28,920
+‫extract it in the middleware function and find a place where the creator has that user ID.
+
+102
+00:09:29,310 --> 00:09:32,130
+‫You learned everything you need for that in the last lectures,
+
+103
+00:09:32,130 --> 00:09:37,050
+‫so definitely try it on your own first before we then do it together in the next lecture.
+
